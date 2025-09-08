@@ -1,6 +1,0 @@
-/src
-/node_modules
-.env
-.qodo
-tsconfig.json
-tsup.config.ts
