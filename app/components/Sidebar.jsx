@@ -1,9 +1,11 @@
 'use client'
 
 import React, { useState } from 'react';
+import { PopupMenu } from "@codeshumon/popup-menu";
 
 const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState(null);
+  const [subMenuOpen, setSubMenuOpen] = useState(null);
 
   const menuItems = [
     {
@@ -58,52 +60,68 @@ const Sidebar = () => {
       <nav className="p-4">
         <ul className="space-y-1">
           {menuItems.map((item) => (
-            <li key={item.id}>
-              <button
-                className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
-                  activeMenu === item.id
-                    ? 'bg-blue-50 text-blue-600'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
-                onClick={() => {
-                  item.action();
-                  if (item.subItems) {
-                    setActiveMenu(activeMenu === item.id ? null : item.id);
+            <li key={item.id} className="relative">
+              {item.subItems ? (
+                <PopupMenu
+                  trigger={
+                    <button
+                      className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                        activeMenu === item.id
+                          ? 'bg-blue-50 text-blue-600'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                      onClick={() => {
+                        item.action();
+                        setActiveMenu(item.id);
+                      }}
+                    >
+                      <span className="text-gray-500">{item.icon}</span>
+                      <span className="flex-1 font-medium">{item.label}</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </button>
                   }
-                }}
-              >
-                <span className="text-gray-500">{item.icon}</span>
-                <span className="flex-1 font-medium">{item.label}</span>
-                {item.subItems && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={`h-4 w-4 transition-transform ${
-                      activeMenu === item.id ? 'rotate-90' : ''
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                )}
-              </button>
-              
-              {/* {item.subItems && activeMenu === item.id && (
-                <div className="ml-8 mt-1">
-                  <PopupMenu
-                    isOpen={true}
-                    items={item.subItems}
-                    position="right"
-                    style={{ position: 'relative', boxShadow: 'none' }}
-                  />
-                </div>
-              )} */}
+                  position="right"
+                  onClose={() => setSubMenuOpen(null)}
+                >
+                  {item.subItems.map((subItem) => (
+                    <button
+                      key={subItem.label}
+                      onClick={subItem.action}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
+                    >
+                      {subItem.label}
+                    </button>
+                  ))}
+                </PopupMenu>
+              ) : (
+                <button
+                  className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                    activeMenu === item.id
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  onClick={() => {
+                    item.action();
+                    setActiveMenu(item.id);
+                  }}
+                >
+                  <span className="text-gray-500">{item.icon}</span>
+                  <span className="flex-1 font-medium">{item.label}</span>
+                </button>
+              )}
             </li>
           ))}
         </ul>
