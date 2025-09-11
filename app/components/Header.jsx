@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { PopupMenu } from "@codeshumon/popup-menu";
+import { PopupMenu } from "@codewithshumon/popup-menu";
 
 const Header = () => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -51,13 +51,16 @@ const Header = () => {
               </button>
             }
             header={<div className="">Profile</div>}
-            viewportPadding={0}
+            viewportPadding={10}
+            menuClassName='bg-[#e4dcdc] border-2 border-[#c71919]'
             position="bottom-right"
+            // animation='out'
+            noDefaultStyle
             onClose={() => setIsProfileMenuOpen(false)}
           >
             {profileMenuItems.map((item) => (
               <div key={item.label}>
-                <button onClick={() => item.action()} className="">{item.label}</button>
+                <button onClick={() => item.action()} className=" bg-[#c71919] font-semibold">{item.label}</button>
               </div>
             ))}
           </PopupMenu>

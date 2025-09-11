@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { PopupMenu } from "@codeshumon/popup-menu";
+import { PopupMenu } from "@codewithshumon/popup-menu";
 
 const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState(null);
@@ -93,14 +93,18 @@ const Sidebar = () => {
                       </svg>
                     </button>
                   }
-                  position="right"
+                  position="right-top"
+                  viewportPadding={10}
                   onClose={() => setSubMenuOpen(null)}
+                  hoverTrigger={true}
+                  animation='out'
+                  menuClassName='bg-blue-600'                  
                 >
                   {item.subItems.map((subItem) => (
                     <button
                       key={subItem.label}
                       onClick={subItem.action}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
+                      className="w-full text-left px-4 py-2 text-sm  text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
                     >
                       {subItem.label}
                     </button>
