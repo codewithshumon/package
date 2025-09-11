@@ -1,20 +1,22 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { PopupMenu } from "@codewithshumon/popup-menu";
+import { PopupMenu } from "@codeshumon/popup-menu";
 
 const Header = () => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const router = useRouter
 
   const profileMenuItems = [
-    { label: "Profile", action: () => console.log("Profile clicked") },
-    { label: "Settings", action: () => console.log("Settings clicked") },
-    { label: "Logout", action: () => console.log("Logout clicked") },
+    { label: "Profile", action: () => router.push("/profile") },
+    { label: "Settings", action: () => router.push("/settings") },
+    { label: "Logout", action: () => router.push("/logout") },
   ];
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 px-4 py-3 flex justify-between items-center">
+    <header className="bg-white shadow-sm border-b border-gray-200 px-12 py-3 flex justify-between items-center">
       <div className="flex items-center">
         <h1 className="text-xl font-semibold text-gray-800">Popup Menu Demo</h1>
       </div>
@@ -38,32 +40,31 @@ const Header = () => {
         </button>
 
         <div className="relative ">
-          <PopupMenu
-            trigger={
-              <button
-                className="flex items-center space-x-2 focus:outline-none"
-                onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-              >
-                <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-medium">
-                  U
-                </div>
-                <span className="text-sm font-medium text-gray-700">User</span>
-              </button>
-            }
-            header={<div className="">Profile</div>}
-            viewportPadding={10}
-            menuClassName='bg-[#e4dcdc] border-2 border-[#c71919]'
-            position="bottom-right"
-            // animation='out'
-            noDefaultStyle
-            onClose={() => setIsProfileMenuOpen(false)}
-          >
-            {profileMenuItems.map((item) => (
-              <div key={item.label}>
-                <button onClick={() => item.action()} className=" bg-[#c71919] font-semibold">{item.label}</button>
+            <PopupMenu
+              header={<h4 className="text-center font-bold text-lg">Profile</h4>}
+              footer={<button className=" flex justify-center w-full cursor-pointer font-bold text-lg">Logout</button>}
+              viewportPadding={15}
+              noDefaultStyle
+              position='top-left'
+              menuClassName='bg-[#513e3e] text-white rounded-lg border border-amber-200 p-2'
+              trigger={
+                <button
+                  className="flex items-center space-x-2 focus:outline-none"
+                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                >
+                  <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center  font-medium">
+                    U
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">User</span>
+                </button>
+              }
+            >
+            <div className="flex flex-col gap-1 py-5">
+              {profileMenuItems.map((item)=> (
+                <button key={item.label} onClick={()=> item.action()} className=" hover:bg-red-500 px-3 py-1 rounded-md">{item.label}</button>
+              ))}
               </div>
-            ))}
-          </PopupMenu>
+            </PopupMenu>
         </div>
       </div>
     </header>
