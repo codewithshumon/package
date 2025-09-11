@@ -8,8 +8,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@codeshumon/popup-menu": "^1.0.2",
-    "@codewithshumon/popup-menu": "^2.0.26",
     "next": "15.5.2",
     "react": "19.1.0",
     "react-dom": "19.1.0"
