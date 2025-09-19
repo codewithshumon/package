@@ -1,11 +1,15 @@
 'use client'
 
-import React, { useState } from 'react';
+
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
 import { PopupMenu } from "@codeshumon/popup-menu";
 
 const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState(null);
   const [subMenuOpen, setSubMenuOpen] = useState(null);
+  const router = useRouter()
 
   const menuItems = [
     {
@@ -16,7 +20,7 @@ const Sidebar = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
         </svg>
       ),
-      action: () => console.log('Dashboard clicked')
+      action: () => router.push('/dashboard')
     },
     {
       id: 'projects',
@@ -26,10 +30,10 @@ const Sidebar = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
         </svg>
       ),
-      action: () => console.log('Projects clicked'),
+      action: () => {},
       subItems: [
-        { label: 'All Projects', action: () => console.log('All Projects clicked') },
-        { label: 'Create New', action: () => console.log('Create New clicked') },
+        { label: 'All Projects', action: () => router.push('/all-projects clicked') },
+        { label: 'Create New', action: () => router.push('/new-project') },
       ]
     },
     {
@@ -40,7 +44,7 @@ const Sidebar = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
         </svg>
       ),
-      action: () => console.log('Analytics clicked')
+      action: () => router.push('Analytics clicked')
     },
     {
       id: 'settings',
@@ -51,18 +55,21 @@ const Sidebar = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
       ),
-      action: () => console.log('Settings clicked')
+      action: () => router.push('/settings')
     },
   ];
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 h-full">
+    <aside className="bg-white border-r border-gray-200 h-full">
       <nav className="p-4">
         <ul className="space-y-1">
           {menuItems.map((item) => (
             <li key={item.id} className="relative">
               {item.subItems ? (
                 <PopupMenu
+                  position='right-top'
+                  hoverTrigger
+                  animation='out'
                   trigger={
                     <button
                       className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
@@ -93,14 +100,12 @@ const Sidebar = () => {
                       </svg>
                     </button>
                   }
-                  position="right"
-                  onClose={() => setSubMenuOpen(null)}
                 >
                   {item.subItems.map((subItem) => (
                     <button
                       key={subItem.label}
                       onClick={subItem.action}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
+                      className="w-full text-left px-4 py-2 text-sm  text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
                     >
                       {subItem.label}
                     </button>
