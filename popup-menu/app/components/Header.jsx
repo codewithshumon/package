@@ -44,12 +44,10 @@ const Header = () => {
               header={<h4 className="text-center font-bold text-lg">Profile</h4>}
               footer={<button className=" flex justify-center w-full cursor-pointer font-bold text-lg">Logout</button>}
               viewportPadding={15}
-              noDefaultStyle
-              position='top-left'
-              menuClassName='bg-[#513e3e] text-white rounded-lg border border-amber-200 p-2'
+              position='bottom-right'
               trigger={
                 <button
-                  className="flex items-center space-x-2 focus:outline-none"
+                  className="flex items-center space-x-2"
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                 >
                   <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center  font-medium">
@@ -61,7 +59,7 @@ const Header = () => {
             >
             <div className="flex flex-col gap-1 py-5">
               {profileMenuItems.map((item)=> (
-                <button key={item.label} onClick={()=> item.action()} className=" hover:bg-red-500 px-3 py-1 rounded-md">{item.label}</button>
+                <button key={item.label} onClick={()=> item.action()} className="">{item.label}</button>
               ))}
               </div>
             </PopupMenu>

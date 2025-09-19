@@ -33,7 +33,9 @@ const Sidebar = () => {
       action: () => {},
       subItems: [
         { label: 'All Projects', action: () => router.push('/all-projects clicked') },
-        { label: 'Create New', action: () => router.push('/new-project') },
+        { label: 'Create', action: () => router.push('/new-project') },
+        { label: 'Update', action: () => router.push('/new-project') },
+        { label: 'Delete', action: () => router.push('/new-project') },
       ]
     },
     {

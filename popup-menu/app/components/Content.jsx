@@ -47,15 +47,13 @@ const Content = () => {
                 onClose={handleClose}
                 position='right-top'
                 viewportPadding={20}
-                noDefaultStyle
-                enableScroll
                 animation='out'
-                menuClassName='bg-[#f0b22c] p-2 rounded-lg border-2 border-red-500'
+                theme='dark'
                 header={
                   <div className="font-semibold">Menu Header</div>
                 }
                 footer={
-                  <div className="text-sm  text-gray-500">
+                  <div className="font-semibold">
                     Menu Footer
                   </div>
                 }
